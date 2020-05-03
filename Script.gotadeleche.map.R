@@ -5,7 +5,7 @@
 #Author: @Andriu_Chango 2020
 
 rm(list=ls())
-## Packeges, Variables & Directories====
+## Packages, Variables & Directories====
 
 # install.packages("ggplot2")
 library(ggplot2)
@@ -40,7 +40,6 @@ margen <-c(0.1, 0.01, 0.1, 0.01)
 #Directory output plot  
 campaña.IMG.dir<-("/home/andriu/Documents/GOTA_LECHE/MAPS")
 
-
 #Maps Bathy & Topo ====
 
 dat <- getNOAA.bathy(-76,-70,-36,-31,res=1, keep=TRUE)
@@ -68,8 +67,6 @@ dat2<-fortify.bathy(dat)
   scale_y_continuous(breaks = scales::pretty_breaks(n = 15), limits = c(-36,-31))+
   scale_x_continuous(breaks = scales::pretty_breaks(n = 6), limits = c(-76,-70))
     
-
-
 # Let us add the scale bar and the North arrow ====
 map_2<-
   map_1+  
@@ -89,7 +86,6 @@ map_2<-
 # get the NC data:
 sud <- map_data("world", ylim=c(-50,25), xlim=c(-100,-50))
 
-
 #Inset the South America map====
 map_3 <- map_2 + inset(
   grob = ggplotGrob(ggplot() + 
@@ -104,24 +100,20 @@ map_3 <- map_2 + inset(
   #Position South America map in the Bathy & Topo maps
   xmin = -76, xmax = -74, ymin = -33, ymax = -31)
 
-
-
 # Satellite Map detail Gota de Leche by google API 2020 ====
 
-#> Loading required package: ggplot2
-#> Google Maps API Terms of Service: http://developers.google.com/maps/terms.
-#> Please cite ggmap if you use it: see citation("ggmap") for details.
+# Google Maps API Terms of Service: http://developers.google.com/maps/terms.
+# Please cite ggmap if you use it: see citation("ggmap") for details.
 #https://console.cloud.google.com/apis/credentials?folder=&organizationId=&project=embebedmap
 
 # save api key
-register_google(key = "AIzaSyAzp95W_3HResRoZlya-irFahPVauJpNTk")
+register_google(key = "PUT YOUR API KEY HERE")
 
 # check if key is saved
 #has_goog_key()
 #> [1] TRUE
 
 gota_basemap<-get_map(location = c(lon = -71.636888, lat = -33.483510), zoom = 13, maptype = "satellite")
-#See ?ggmap to plot it
 
 localities<-c("Punta de Tralca", "El Tabo", "Las Cruces", "San Sebastián", "Gota de Leche")
 lon<-c(-71.697106, -71.666973,-71.623042,-71.599684,-71.636888)
@@ -158,15 +150,12 @@ matmet_mapa<-ggmap(gota_basemap, legend = "topright") +
   labs(x = "", y = "", size=txt)+
   theme(axis.text  = element_text(size=atsize))
 
-
-
-
-# Final Figure 18x18 cm tiff format(lzw) resolution 300 dpi  ====
+# Figure 18x18 cm tiff format(lzw) resolution 300 dpi  ====
 
 # arrange into grid and align
 pg<-plot_grid(map_3, matmet_mapa, align = "h", nrow = 1)
 
-#Final figure
+#Last figure
 tiff(file.path(campaña.IMG.dir,
                paste("Figure_SGL_MAP_5", ".tiff", sep = "")),  
      units= "cm", width = 18, height = 18, res = 300, compression = "lzw")
