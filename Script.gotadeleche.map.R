@@ -1,8 +1,8 @@
-#Scrip.gotadeleche.maps.R
-#Gota de Leche Maps
-#Topographic sudamerica
+# Script.gotadeleche.map.R
+# Gota de Leche Maps
+# Topographic sudamerica
 # And satellite map detail
-#Author: @Andriu_Chango 2020
+# Author: @Andriu_Chango 2020
 
 rm(list=ls())
 ## Packages, Variables & Directories====
